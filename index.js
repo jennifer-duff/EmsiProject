@@ -1,7 +1,12 @@
 "use strict";
+const Chart = require("chart.js");
+
 let data = "no data";
 let red = "#eb4034";
 let green = "#44ad4c";
+let darkBlue = "#173b75";
+let mediumBlue = "#158cbf";
+let lightBlue = "#80cbe0";
 
 async function getData() {
     let response = await axios
@@ -118,6 +123,54 @@ function getSummaryEarnings() {
     summaryNationalEarnings.innerText = nationalEarnings;
 }
 
+function createGraph(data) {
+    const trendData = data.trend_comparison;
+
+    const labels = [];
+    const startYear = parseInt(trendData.start_year);
+    const endYear = parseInt(trendData.end_year);
+    for (let i = startYear; i <= endYear; i++) {
+        labels.push(i);
+    }
+
+    const regionalDataSet = {
+        label: "Region",
+        data: trendData.regional,
+        fill: false,
+        borderColor: darkBlue,
+        tension: 0.1,
+    };
+
+    const stateDataSet = {
+        label: "State",
+        data: trendData.state,
+        fill: false,
+        borderColor: mediumBlue,
+        tension: 0.1,
+    };
+
+    const nationalDataSet = {
+        label: "Nation",
+        data: trendData.nation,
+        fill: false,
+        borderColor: lightBlue,
+        tension: 0.1,
+    };
+
+    const chartData = {
+        labels: labels,
+        datasets: [regionalDataSet, stateDataSet, nationalDataSet],
+    };
+
+    const config = {
+        type: "line",
+        data: chartData,
+    };
+
+    const trendsGraph = document.querySelector("trendsGraph");
+    new Chart(trendsGraph, config);
+}
+
 window.addEventListener("load", async function (event) {
     await getData();
 
@@ -125,4 +178,5 @@ window.addEventListener("load", async function (event) {
     setSummaryJobs(data);
     setSummaryJobsGrowth(data);
     getSummaryEarnings(data);
+    createGraph(data);
 });
