@@ -31,34 +31,37 @@
                         Jobs (<span id="summaryYear">year</span>)
                     </p>
                     <p class="summaryLvl3">
-                        <span id="summayPercent">XX</span>%
-                        <span id="summaryAboveBelow">above </span>
+                        <span id="summaryPercent">XX</span>%
+                        <span id="summaryAboveBelow">+/-</span>
                         National Average
                     </p>
                 </div>
 
                 <div class="summaryBox">
                     <p class="summaryLvl1">
-                        <span id="localPlusMinus">+</span>
+                        <span id="localPlusMinus">+/-</span>
                         <span id="summaryChangePercent">XX</span>%
                     </p>
                     <p class="summaryLvl2">
                         % Change (<span id="summaryStart">XXXX</span> -
-                        <span id="summaryFinish">XXXX</span>)
+                        <span id="summaryEnd">XXXX</span>)
                     </p>
                     <p class="summaryLvl3">
-                        Nation: <span id="nationPlusMinus">+</span
-                        ><span id="nationPercentChange">XX.X</span>%
+                        Nation:
+                        <span id="nationalTrendWrapper">
+                            <span id="nationPlusMinus">+/-</span
+                            ><span id="nationPercentChange">XX.X</span>%
+                        </span>
                     </p>
                 </div>
 
                 <div class="summaryBox">
                     <p class="summaryLvl1">
-                        $<span id="summaryDollarsPerHour">XX.XX</span>/hr
+                        $<span id="summaryRegionalEarnings">XX.XX</span>/hr
                     </p>
                     <p class="summaryLvl2">Median Hourly Earnings</p>
                     <p class="summaryLvl3">
-                        Nation: $<span id="summaryNationalRate">XX.XX</span
+                        Nation: $<span id="summaryNationalEarnings">XX.XX</span
                         >/hour
                     </p>
                 </div>
@@ -135,5 +138,8 @@
             </h2>
             <div id="industriesWrapper"></div>
         </section>
+
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="index.js"></script>
     </body>
 </html>
