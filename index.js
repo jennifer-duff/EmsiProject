@@ -1,5 +1,5 @@
 "use strict";
-const Chart = require("chart.js");
+// import Chart from "chart.js";
 
 let data = "no data";
 let red = "#eb4034";
@@ -178,5 +178,5 @@ window.addEventListener("load", async function (event) {
     setSummaryJobs(data);
     setSummaryJobsGrowth(data);
     getSummaryEarnings(data);
-    createGraph(data);
+    // createGraph(data);
 });
