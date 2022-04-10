@@ -25,7 +25,7 @@
             </h2>
 
             <div id="summaryBoxWrapper">
-                <div id="summaryJobsPerYear" class="summaryBox">
+                <div class="summaryBox">
                     <p id="summaryNumJobs" class="summaryLvl1">XX,XXX</p>
                     <p class="summaryLvl2">
                         Jobs (<span id="summaryYear">year</span>)
@@ -37,7 +37,7 @@
                     </p>
                 </div>
 
-                <div id="summaryPercentChange" class="summaryBox">
+                <div class="summaryBox">
                     <p class="summaryLvl1">
                         <span id="localPlusMinus">+</span>
                         <span id="summaryChangePercent">XX</span>%
@@ -52,7 +52,7 @@
                     </p>
                 </div>
 
-                <div id="summaryDollarsPerHour" class="summaryBox">
+                <div class="summaryBox">
                     <p class="summaryLvl1">
                         $<span id="summaryDollarsPerHour">XX.XX</span>/hr
                     </p>
@@ -63,6 +63,77 @@
                     </p>
                 </div>
             </div>
+        </section>
+
+        <section id="regionalTrends">
+            <h2>Regional Trends</h2>
+            <div id="regionalTrendsWrapper"></div>
+            <canvas></canvas>
+            <table id="graphTable">
+                <colgroup>
+                    <col class="symbol" />
+                    <col class="region" />
+                    <col class="startJobs" />
+                    <col class="endJobs" />
+                    <col class="change" />
+                    <col class="percentChange" />
+                </colgroup>
+
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Region</th>
+                        <th class="rightAlign">
+                            <span id="graphStartYear">XXXX</span> Jobs
+                        </th>
+                        <th class="rightAlign">
+                            <span id="graphEndYear">XXXX</span> Jobs
+                        </th>
+                        <th class="rightAlign">Change</th>
+                        <th class="rightAlign">% Change</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr id="regionRow">
+                        <td>O</td>
+                        <td>Region</td>
+                        <td id="regionStartJobs" class="rightAlign">X,XXX</td>
+                        <td id="regionEndJobs" class="rightAlign">Y,YYY</td>
+                        <td id="regionChangeNum" class="rightAlign">Z,ZZZZ</td>
+                        <td id="regionPercentChange" class="rightAlign">
+                            WW.WW%
+                        </td>
+                    </tr>
+                    <tr id="stateRow">
+                        <td>O</td>
+                        <td>State</td>
+                        <td id="stateStartJobs" class="rightAlign">X,XXX</td>
+                        <td id="stateEndJobs" class="rightAlign">Y,YYY</td>
+                        <td id="stateChangeNum" class="rightAlign">Z,ZZZZ</td>
+                        <td id="statePercentChange" class="rightAlign">
+                            WW.WW%
+                        </td>
+                    </tr>
+                    <tr id="nationRow">
+                        <td>O</td>
+                        <td>Nation</td>
+                        <td id="nationStartJobs" class="rightAlign">X,XXX</td>
+                        <td id="nationEndJobs" class="rightAlign">Y,YYY</td>
+                        <td id="nationChangeNum" class="rightAlign">Z,ZZZZ</td>
+                        <td id="nationPercentChange" class="rightAlign">
+                            WW.WW%
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="industries">
+            <h2>
+                Industries Employing <span class="occupation">Occupation</span>
+            </h2>
+            <div id="industriesWrapper"></div>
         </section>
     </body>
 </html>

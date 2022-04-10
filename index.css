@@ -1,5 +1,4 @@
 /*---------- GENERAL ----------*/
-
 * {
     box-sizing: border-box;
     font-family: "Helvetica", "Arial", "sans-serif";
@@ -18,10 +17,11 @@ h1 {
 
 h2 {
     font-size: 12pt;
+    margin: 0 0 5px 0;
 }
 
 section {
-    margin: 30px 0;
+    margin: 50px 0;
 }
 
 section:first-of-type {
@@ -29,14 +29,13 @@ section:first-of-type {
 }
 
 /*---------- HEADING ----------*/
-
 #subtitle {
-    margin-top: 0px;
-    font-weight: 600;
+    margin: 0px;
+    font-weight: 400;
+    font-size: 14pt;
 }
 
 /*---------- SUMMARY ----------*/
-
 #summaryBoxWrapper {
     display: flex;
     justify-content: space-between;
@@ -52,13 +51,68 @@ section:first-of-type {
     justify-content: center;
     align-items: center;
     text-align: center;
+    flex: 1;
     padding: 40px;
+}
+
+.summaryBox:nth-of-type(2) {
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
 }
 
 .summaryBox p {
     margin: 5px;
 }
 
-.summaryLevl1 {
+.summaryLvl1 {
     font-size: 20pt;
+}
+
+.summaryLvl2 {
+    font-weight: 600;
+}
+
+/*---------- REGIONAL TRENDS ----------*/
+#regionalTrendsWrapper {
+    border-top: 1px solid lightgrey;
+}
+
+canvas {
+    width: 100%;
+    height: 300px;
+    background-color: lightgray;
+    margin: 15px 0;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+tr {
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+
+/* col {
+    border-right: 1px solid black;
+} */
+
+td,
+th {
+    padding: 5px 10px;
+    text-align: left;
+}
+
+.rightAlign {
+    text-align: right;
+}
+
+.region {
+    width: 50%;
+}
+
+/*---------- INDUSTRIES ----------*/
+#industriesWrapper {
+    border-top: 1px solid lightgrey;
 }
