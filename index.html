@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="index.css" />
+        <title>Emsi | Occupation Overview</title>
+    </head>
+    <body>
+        <section id="heading">
+            <h1>Occupation Overview</h1>
+            <p id="subtitle">
+                <span id="occupationSubtitle" class="occupation"
+                    >Occupation</span
+                >
+                in <span id="location">location</span>
+            </p>
+        </section>
+
+        <section id="summary">
+            <h2>
+                Occupation Summary for
+                <span class="occupation">Occupation</span>
+            </h2>
+
+            <div id="summaryBoxWrapper">
+                <div id="summaryJobsPerYear" class="summaryBox">
+                    <p id="summaryNumJobs" class="summaryLvl1">XX,XXX</p>
+                    <p class="summaryLvl2">
+                        Jobs (<span id="summaryYear">year</span>)
+                    </p>
+                    <p class="summaryLvl3">
+                        <span id="summayPercent">XX</span>%
+                        <span id="summaryAboveBelow">above </span>
+                        National Average
+                    </p>
+                </div>
+
+                <div id="summaryPercentChange" class="summaryBox">
+                    <p class="summaryLvl1">
+                        <span id="localPlusMinus">+</span>
+                        <span id="summaryChangePercent">XX</span>%
+                    </p>
+                    <p class="summaryLvl2">
+                        % Change (<span id="summaryStart">XXXX</span> -
+                        <span id="summaryFinish">XXXX</span>)
+                    </p>
+                    <p class="summaryLvl3">
+                        Nation: <span id="nationPlusMinus">+</span
+                        ><span id="nationPercentChange">XX.X</span>%
+                    </p>
+                </div>
+
+                <div id="summaryDollarsPerHour" class="summaryBox">
+                    <p class="summaryLvl1">
+                        $<span id="summaryDollarsPerHour">XX.XX</span>/hr
+                    </p>
+                    <p class="summaryLvl2">Median Hourly Earnings</p>
+                    <p class="summaryLvl3">
+                        Nation: $<span id="summaryNationalRate">XX.XX</span
+                        >/hour
+                    </p>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
