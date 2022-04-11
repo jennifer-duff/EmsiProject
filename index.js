@@ -190,9 +190,9 @@ function populateTrendsTable(data) {
     let nationEndJobsLabel = document.querySelector("#nationEndJobs");
     let nationChangeNumLabel = document.querySelector("#nationChangeNum");
     let nationPercentChangeLabel = document.querySelector(
-        "#nationPercentChange"
+        "#nationalPercentChange"
     );
-    let trendCircles = document.querySelectorAll(".trendCircle");
+    let trendShapes = document.querySelectorAll(".trendShape");
 
     startYearLabel.innerText = startYear;
     endYearLabel.innerText = endYear;
@@ -236,9 +236,8 @@ function populateTrendsTable(data) {
     ).toFixed(1);
     nationPercentChangeLabel.innerText = nationPercentChange;
 
-    trendCircles[0].style.backgroundColor = darkBlue;
-    trendCircles[1].style.backgroundColor = mediumBlue;
-    trendCircles[2].style.backgroundColor = lightBlue;
+    trendShapes[0].style.backgroundColor = darkBlue;
+    trendShapes[1].style.backgroundColor = mediumBlue;
 }
 
 function populateIndustryTable(data) {
@@ -260,7 +259,7 @@ function populateIndustryTable(data) {
         let newRow = table.insertRow(rowCount);
 
         let industryCell = newRow.insertCell(0);
-        industryCell.innerHTML = `<span class="industryTitle">${title}</span><div class="industryDiv" style="width: ${percentageJobsInIndustry}%; overflow="visible"></div>`;
+        industryCell.innerHTML = `<div><img src="/buildingIcon.svg" class="buildingIcon"/><span class="industryTitle">${title}</span></div><div class="industryDiv" style="width: ${percentageJobsInIndustry}%; overflow="visible"></div>`;
 
         let occupationJobsCell = newRow.insertCell(1);
         occupationJobsCell.innerText = inOccupationJobs.toLocaleString("en");

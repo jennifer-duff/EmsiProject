@@ -39,8 +39,8 @@
 
                 <div class="summaryBox">
                     <p class="summaryLvl1">
-                        <span id="localPlusMinus">+/-</span>
-                        <span id="summaryChangePercent">XX</span>%
+                        <span id="localPlusMinus">+/-</span
+                        ><span id="summaryChangePercent">XX</span>%
                     </p>
                     <p class="summaryLvl2">
                         % Change (<span id="summaryStart">XXXX</span> -
@@ -101,7 +101,7 @@
 
                 <tbody>
                     <tr id="regionRow">
-                        <td><div class="trendCircle"></div></td>
+                        <td><div class="trendShape"></div></td>
                         <td>Region</td>
                         <td id="regionStartJobs" class="rightAlign">X,XXX</td>
                         <td id="regionEndJobs" class="rightAlign">Y,YYY</td>
@@ -111,7 +111,7 @@
                         </td>
                     </tr>
                     <tr id="stateRow">
-                        <td><div class="trendCircle"></div></td>
+                        <td><div class="trendShape"></div></td>
                         <td>State</td>
                         <td id="stateStartJobs" class="rightAlign">X,XXX</td>
                         <td id="stateEndJobs" class="rightAlign">Y,YYY</td>
@@ -121,13 +121,13 @@
                         </td>
                     </tr>
                     <tr id="nationRow">
-                        <td><div class="trendCircle"></div></td>
+                        <td><div class="trendShape"></div></td>
                         <td>Nation</td>
                         <td id="nationStartJobs" class="rightAlign">X,XXX</td>
                         <td id="nationEndJobs" class="rightAlign">Y,YYY</td>
                         <td id="nationChangeNum" class="rightAlign">Z,ZZZZ</td>
                         <td class="rightAlign">
-                            <span id="nationPercentChange">WW.W</span>%
+                            <span id="nationalPercentChange">WW.W</span>%
                         </td>
                     </tr>
                 </tbody>
@@ -224,6 +224,8 @@
                     fill: false,
                     borderColor: darkBlue,
                     tension: 0.1,
+                    pointStyle: "circle",
+                    pointBorderWidth: 5,
                 };
 
                 const stateDataSet = {
@@ -232,6 +234,8 @@
                     fill: false,
                     borderColor: mediumBlue,
                     tension: 0.1,
+                    pointStyle: "rect",
+                    pointBorderWidth: 5,
                 };
 
                 const nationalDataSet = {
@@ -240,6 +244,8 @@
                     fill: false,
                     borderColor: lightBlue,
                     tension: 0.1,
+                    pointStyle: "triangle",
+                    pointBorderWidth: 5,
                 };
 
                 const chartData = {
@@ -251,6 +257,25 @@
                 const config = {
                     type: "line",
                     data: chartData,
+                    options: {
+                        plugins: {
+                            legend: {
+                                display: false,
+                            },
+                        },
+                        scales: {
+                            yAxes: {
+                                title: {
+                                    display: true,
+                                    text: "Percent Change",
+                                    font: {
+                                        size: 14,
+                                        weight: 600,
+                                    },
+                                },
+                            },
+                        },
+                    },
                 };
                 new Chart("trendsGraph", config);
             }
