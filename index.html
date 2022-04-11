@@ -101,33 +101,33 @@
 
                 <tbody>
                     <tr id="regionRow">
-                        <td>O</td>
+                        <td><div class="trendCircle"></div></td>
                         <td>Region</td>
                         <td id="regionStartJobs" class="rightAlign">X,XXX</td>
                         <td id="regionEndJobs" class="rightAlign">Y,YYY</td>
                         <td id="regionChangeNum" class="rightAlign">Z,ZZZZ</td>
-                        <td id="regionPercentChange" class="rightAlign">
-                            WW.WW%
+                        <td class="rightAlign">
+                            <span id="regionPercentChange">WW.W</span>%
                         </td>
                     </tr>
                     <tr id="stateRow">
-                        <td>O</td>
+                        <td><div class="trendCircle"></div></td>
                         <td>State</td>
                         <td id="stateStartJobs" class="rightAlign">X,XXX</td>
                         <td id="stateEndJobs" class="rightAlign">Y,YYY</td>
                         <td id="stateChangeNum" class="rightAlign">Z,ZZZZ</td>
-                        <td id="statePercentChange" class="rightAlign">
-                            WW.WW%
+                        <td class="rightAlign">
+                            <span id="statePercentChange">WW.W</span>%
                         </td>
                     </tr>
                     <tr id="nationRow">
-                        <td>O</td>
+                        <td><div class="trendCircle"></div></td>
                         <td>Nation</td>
                         <td id="nationStartJobs" class="rightAlign">X,XXX</td>
                         <td id="nationEndJobs" class="rightAlign">Y,YYY</td>
                         <td id="nationChangeNum" class="rightAlign">Z,ZZZZ</td>
-                        <td id="nationPercentChange" class="rightAlign">
-                            WW.WW%
+                        <td class="rightAlign">
+                            <span id="nationPercentChange">WW.W</span>%
                         </td>
                     </tr>
                 </tbody>
@@ -139,10 +139,124 @@
                 Industries Employing <span class="occupation">Occupation</span>
             </h2>
             <div id="industriesWrapper"></div>
+            <table id="industryTable">
+                <colgroup>
+                    <col class="industry" />
+                    <col class="jobsInIndustry" />
+                    <col class="percentJobsInIndustry" />
+                    <col class="percentTotalJobs" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Industry</th>
+                        <th class="rightAlign">
+                            Occupation Jobs in Industry (<span
+                                class="IndustryCurrentYear"
+                                >XXXX</span
+                            >)
+                        </th>
+                        <th class="rightAlign">
+                            % of Occupation Jobs in Industry (<span
+                                class="IndustryCurrentYear"
+                                >XXXX</span
+                            >)
+                        </th>
+                        <th class="rightAlign">
+                            % Total Jobs In Industry (<span
+                                class="IndustryCurrentYear"
+                                >XXXX</span
+                            >)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </section>
 
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            let data = "no data";
+            let darkBlue = "#173b75";
+            let mediumBlue = "#158cbf";
+            let lightBlue = "#80cbe0";
+
+            async function getData() {
+                let response = await axios
+                    .get(
+                        "https://run.mocky.io/v3/a2cc3707-8691-4188-8413-6183a7bb3d32"
+                    )
+                    .then((response) => {
+                        data = response.data;
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
+
+            function calculatePercentChange(dataset) {
+                let percentChanges = [0];
+                let start = dataset[0];
+                for (let i = 1; i < dataset.length; i++) {
+                    let change = dataset[i] - start;
+                    let percentChange = (change / dataset[i]) * 100;
+                    // console.log(percentChange.toFixed(2));
+                    percentChanges.push(percentChange);
+                }
+                // console.log("------------");
+                return percentChanges;
+            }
+
+            async function createGraph() {
+                await getData();
+                const trendData = data.trend_comparison;
+
+                const labels = [];
+                const startYear = parseInt(trendData.start_year);
+                const endYear = parseInt(trendData.end_year);
+                for (let i = startYear; i <= endYear; i++) {
+                    labels.push(i);
+                }
+
+                const regionalDataSet = {
+                    label: "Region",
+                    data: calculatePercentChange(trendData.regional),
+                    fill: false,
+                    borderColor: darkBlue,
+                    tension: 0.1,
+                };
+
+                const stateDataSet = {
+                    label: "State",
+                    data: calculatePercentChange(trendData.state),
+                    fill: false,
+                    borderColor: mediumBlue,
+                    tension: 0.1,
+                };
+
+                const nationalDataSet = {
+                    label: "Nation",
+                    data: calculatePercentChange(trendData.nation),
+                    fill: false,
+                    borderColor: lightBlue,
+                    tension: 0.1,
+                };
+
+                const chartData = {
+                    labels: labels,
+                    datasets: [regionalDataSet, stateDataSet, nationalDataSet],
+                    options: {},
+                };
+
+                const config = {
+                    type: "line",
+                    data: chartData,
+                };
+                new Chart("trendsGraph", config);
+            }
+
+            createGraph();
+        </script>
         <script src="/index.js" type="module"></script>
     </body>
 </html>

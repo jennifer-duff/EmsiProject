@@ -1,7 +1,8 @@
 "use strict";
-// import Chart from "chart.js";
 
 let data = "no data";
+let startYear;
+let endYear;
 let red = "#eb4034";
 let green = "#44ad4c";
 let darkBlue = "#173b75";
@@ -87,8 +88,8 @@ function setSummaryJobsGrowth(data) {
     // set Summary > JobsGrowth > Start & End
     let summaryStart = document.querySelector("#summaryStart");
     let summaryEnd = document.querySelector("#summaryEnd");
-    let startYear = jobsGrowthData.start_year;
-    let endYear = jobsGrowthData.end_year;
+    startYear = jobsGrowthData.start_year;
+    endYear = jobsGrowthData.end_year;
     summaryStart.innerText = startYear;
     summaryEnd.innerText = endYear;
 
@@ -123,52 +124,175 @@ function getSummaryEarnings() {
     summaryNationalEarnings.innerText = nationalEarnings;
 }
 
-function createGraph(data) {
-    const trendData = data.trend_comparison;
+// function createGraph(data) {
+//     const trendData = data.trend_comparison;
 
-    const labels = [];
-    const startYear = parseInt(trendData.start_year);
-    const endYear = parseInt(trendData.end_year);
-    for (let i = startYear; i <= endYear; i++) {
-        labels.push(i);
+//     const labels = [];
+//     const startYear = parseInt(trendData.start_year);
+//     const endYear = parseInt(trendData.end_year);
+//     for (let i = startYear; i <= endYear; i++) {
+//         labels.push(i);
+//     }
+
+//     const regionalDataSet = {
+//         label: "Region",
+//         data: trendData.regional,
+//         fill: false,
+//         borderColor: darkBlue,
+//         tension: 0.1,
+//     };
+
+//     const stateDataSet = {
+//         label: "State",
+//         data: trendData.state,
+//         fill: false,
+//         borderColor: mediumBlue,
+//         tension: 0.1,
+//     };
+
+//     const nationalDataSet = {
+//         label: "Nation",
+//         data: trendData.nation,
+//         fill: false,
+//         borderColor: lightBlue,
+//         tension: 0.1,
+//     };
+
+//     const chartData = {
+//         labels: labels,
+//         datasets: [regionalDataSet, stateDataSet, nationalDataSet],
+//     };
+
+//     const config = {
+//         type: "line",
+//         data: chartData,
+//     };
+
+//     const trendsGraph = document.querySelector("trendsGraph");
+//     new Chart(trendsGraph, config);
+// }
+
+function populateTrendsTable(data) {
+    let trendData = data.trend_comparison;
+    let startYearLabel = document.querySelector("#graphStartYear");
+    let endYearLabel = document.querySelector("#graphEndYear");
+    let regionStartJobsLabel = document.querySelector("#regionStartJobs");
+    let regionEndJobsLabel = document.querySelector("#regionEndJobs");
+    let regionChangeNumLabel = document.querySelector("#regionChangeNum");
+    let regionPercentChangeLabel = document.querySelector(
+        "#regionPercentChange"
+    );
+    let stateStartJobsLabel = document.querySelector("#stateStartJobs");
+    let stateEndJobsLabel = document.querySelector("#stateEndJobs");
+    let stateChangeNumLabel = document.querySelector("#stateChangeNum");
+    let statePercentChangeLabel = document.querySelector("#statePercentChange");
+    let nationStartJobsLabel = document.querySelector("#nationStartJobs");
+    let nationEndJobsLabel = document.querySelector("#nationEndJobs");
+    let nationChangeNumLabel = document.querySelector("#nationChangeNum");
+    let nationPercentChangeLabel = document.querySelector(
+        "#nationPercentChange"
+    );
+    let trendCircles = document.querySelectorAll(".trendCircle");
+
+    startYearLabel.innerText = startYear;
+    endYearLabel.innerText = endYear;
+
+    let regionStartJobs = parseInt(trendData.regional[0]);
+    let regionEndJobs = parseInt(
+        trendData.regional[trendData.regional.length - 1]
+    );
+    regionStartJobsLabel.innerText = regionStartJobs.toLocaleString("en");
+    regionEndJobsLabel.innerText = regionEndJobs.toLocaleString("en");
+    regionChangeNumLabel.innerText = (
+        regionEndJobs - regionStartJobs
+    ).toLocaleString("en");
+    regionPercentChangeLabel.innerText = (
+        ((regionEndJobs - regionStartJobs) / regionStartJobs) *
+        100
+    ).toFixed(1);
+
+    let stateStartJobs = parseInt(trendData.state[0]);
+    let stateEndJobs = parseInt(trendData.state[trendData.state.length - 1]);
+    stateStartJobsLabel.innerText = stateStartJobs.toLocaleString("en");
+    stateEndJobsLabel.innerText = stateEndJobs.toLocaleString("en");
+    stateChangeNumLabel.innerText = (
+        stateEndJobs - stateStartJobs
+    ).toLocaleString("en");
+    statePercentChangeLabel.innerText = (
+        ((stateEndJobs - stateStartJobs) / stateStartJobs) *
+        100
+    ).toFixed(1);
+
+    let nationStartJobs = parseInt(trendData.nation[0]);
+    let nationEndJobs = parseInt(trendData.nation[trendData.nation.length - 1]);
+    nationStartJobsLabel.innerText = nationStartJobs.toLocaleString("en");
+    nationEndJobsLabel.innerText = nationEndJobs.toLocaleString("en");
+    nationChangeNumLabel.innerText = (
+        nationEndJobs - nationStartJobs
+    ).toLocaleString("en");
+    let nationPercentChange = (
+        ((nationEndJobs - nationStartJobs) / nationStartJobs) *
+        100
+    ).toFixed(1);
+    nationPercentChangeLabel.innerText = nationPercentChange;
+
+    trendCircles[0].style.backgroundColor = darkBlue;
+    trendCircles[1].style.backgroundColor = mediumBlue;
+    trendCircles[2].style.backgroundColor = lightBlue;
+}
+
+function populateIndustryTable(data) {
+    const industryData = data.employing_industries;
+    const table = document.querySelector("#industryTable");
+    const yearLabels = document.querySelectorAll(".IndustryCurrentYear");
+
+    for (let label of yearLabels) {
+        label.innerText = industryData.year;
     }
 
-    const regionalDataSet = {
-        label: "Region",
-        data: trendData.regional,
-        fill: false,
-        borderColor: darkBlue,
-        tension: 0.1,
-    };
+    function addTableRow(
+        title,
+        inOccupationJobs,
+        percentageJobsInIndustry,
+        percentageTotalJobs
+    ) {
+        let rowCount = table.rows.length;
+        let newRow = table.insertRow(rowCount);
 
-    const stateDataSet = {
-        label: "State",
-        data: trendData.state,
-        fill: false,
-        borderColor: mediumBlue,
-        tension: 0.1,
-    };
+        let industryCell = newRow.insertCell(0);
+        industryCell.innerHTML = `<span class="industryTitle">${title}</span><div class="industryDiv" style="width: ${percentageJobsInIndustry}%; overflow="visible"></div>`;
 
-    const nationalDataSet = {
-        label: "Nation",
-        data: trendData.nation,
-        fill: false,
-        borderColor: lightBlue,
-        tension: 0.1,
-    };
+        let occupationJobsCell = newRow.insertCell(1);
+        occupationJobsCell.innerText = inOccupationJobs.toLocaleString("en");
+        occupationJobsCell.classList.add("rightAlign");
 
-    const chartData = {
-        labels: labels,
-        datasets: [regionalDataSet, stateDataSet, nationalDataSet],
-    };
+        let percentOccupationJobsCell = newRow.insertCell(2);
+        percentOccupationJobsCell.innerHTML = `<span>${percentageJobsInIndustry}</span>%`;
+        percentOccupationJobsCell.classList.add("rightAlign");
 
-    const config = {
-        type: "line",
-        data: chartData,
-    };
+        let percentTotalJobsCell = newRow.insertCell(3);
+        percentTotalJobsCell.innerHTML = `<span>${percentageTotalJobs}</span>%`;
+        percentTotalJobsCell.classList.add("rightAlign");
+    }
 
-    const trendsGraph = document.querySelector("trendsGraph");
-    new Chart(trendsGraph, config);
+    for (let i = 0; i < industryData.industries.length; i++) {
+        let title = industryData.industries[i].title;
+        let inOccupationJobs = industryData.industries[i].in_occupation_jobs;
+        let percentageTotalJobs = (
+            (inOccupationJobs / industryData.industries[i].jobs) *
+            100
+        ).toFixed(1);
+        let percentageJobsInIndustry = (
+            (inOccupationJobs / industryData.jobs) *
+            100
+        ).toFixed(1);
+        addTableRow(
+            title,
+            inOccupationJobs,
+            percentageJobsInIndustry,
+            percentageTotalJobs
+        );
+    }
 }
 
 window.addEventListener("load", async function (event) {
@@ -178,5 +302,7 @@ window.addEventListener("load", async function (event) {
     setSummaryJobs(data);
     setSummaryJobsGrowth(data);
     getSummaryEarnings(data);
+    populateTrendsTable(data);
+    populateIndustryTable(data);
     // createGraph(data);
 });
