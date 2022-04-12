@@ -211,7 +211,8 @@ function populateIndustryTable(data) {
         let newRow = table.insertRow(rowCount);
 
         let industryCell = newRow.insertCell(0);
-        industryCell.innerHTML = `<div><img src="buildingIcon.svg" class="buildingIcon"/><span class="industryTitle">${title}</span></div><div class="industryDiv" style="width: ${percentageJobsInIndustry}%; overflow="visible"></div>`;
+        industryCell.innerHTML = `<div><object data="buildingIcon.svg"
+        class="buildingIcon" type="image/svg+xml"></object><span class="industryTitle">${title}</span></div><div class="industryDiv" style="width: ${percentageJobsInIndustry}%; overflow="visible"></div>`;
 
         let occupationJobsCell = newRow.insertCell(1);
         occupationJobsCell.innerText = inOccupationJobs.toLocaleString("en");
