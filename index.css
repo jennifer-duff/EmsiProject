@@ -146,6 +146,10 @@ tr {
     border-spacing: 0;
 }
 
+#industryTable th {
+    padding: 5px 10px;
+}
+
 #industryTable th:nth-of-type(1) {
     text-align: left;
 }
