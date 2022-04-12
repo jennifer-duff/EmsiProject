@@ -124,54 +124,6 @@ function getSummaryEarnings() {
     summaryNationalEarnings.innerText = nationalEarnings;
 }
 
-// function createGraph(data) {
-//     const trendData = data.trend_comparison;
-
-//     const labels = [];
-//     const startYear = parseInt(trendData.start_year);
-//     const endYear = parseInt(trendData.end_year);
-//     for (let i = startYear; i <= endYear; i++) {
-//         labels.push(i);
-//     }
-
-//     const regionalDataSet = {
-//         label: "Region",
-//         data: trendData.regional,
-//         fill: false,
-//         borderColor: darkBlue,
-//         tension: 0.1,
-//     };
-
-//     const stateDataSet = {
-//         label: "State",
-//         data: trendData.state,
-//         fill: false,
-//         borderColor: mediumBlue,
-//         tension: 0.1,
-//     };
-
-//     const nationalDataSet = {
-//         label: "Nation",
-//         data: trendData.nation,
-//         fill: false,
-//         borderColor: lightBlue,
-//         tension: 0.1,
-//     };
-
-//     const chartData = {
-//         labels: labels,
-//         datasets: [regionalDataSet, stateDataSet, nationalDataSet],
-//     };
-
-//     const config = {
-//         type: "line",
-//         data: chartData,
-//     };
-
-//     const trendsGraph = document.querySelector("trendsGraph");
-//     new Chart(trendsGraph, config);
-// }
-
 function populateTrendsTable(data) {
     let trendData = data.trend_comparison;
     let startYearLabel = document.querySelector("#graphStartYear");
@@ -259,7 +211,7 @@ function populateIndustryTable(data) {
         let newRow = table.insertRow(rowCount);
 
         let industryCell = newRow.insertCell(0);
-        industryCell.innerHTML = `<div><img src="/buildingIcon.svg" class="buildingIcon"/><span class="industryTitle">${title}</span></div><div class="industryDiv" style="width: ${percentageJobsInIndustry}%; overflow="visible"></div>`;
+        industryCell.innerHTML = `<div><img src="buildingIcon.svg" class="buildingIcon"/><span class="industryTitle">${title}</span></div><div class="industryDiv" style="width: ${percentageJobsInIndustry}%; overflow="visible"></div>`;
 
         let occupationJobsCell = newRow.insertCell(1);
         occupationJobsCell.innerText = inOccupationJobs.toLocaleString("en");
