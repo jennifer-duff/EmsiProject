@@ -1,5 +1,6 @@
 "use strict";
 
+// global variables
 let data = "no data";
 let startYear;
 let endYear;
@@ -126,6 +127,8 @@ function getSummaryEarnings() {
 
 function populateTrendsTable(data) {
     let trendData = data.trend_comparison;
+
+    // get all DOM elements
     let startYearLabel = document.querySelector("#graphStartYear");
     let endYearLabel = document.querySelector("#graphEndYear");
     let regionStartJobsLabel = document.querySelector("#regionStartJobs");
@@ -146,9 +149,11 @@ function populateTrendsTable(data) {
     );
     let trendShapes = document.querySelectorAll(".trendShape");
 
+    // Write start and end years to page
     startYearLabel.innerText = startYear;
     endYearLabel.innerText = endYear;
 
+    // Write data for Region row
     let regionStartJobs = parseInt(trendData.regional[0]);
     let regionEndJobs = parseInt(
         trendData.regional[trendData.regional.length - 1]
@@ -163,6 +168,7 @@ function populateTrendsTable(data) {
         100
     ).toFixed(1);
 
+    // write data for State row
     let stateStartJobs = parseInt(trendData.state[0]);
     let stateEndJobs = parseInt(trendData.state[trendData.state.length - 1]);
     stateStartJobsLabel.innerText = stateStartJobs.toLocaleString("en");
@@ -175,6 +181,7 @@ function populateTrendsTable(data) {
         100
     ).toFixed(1);
 
+    // write data for Nation row
     let nationStartJobs = parseInt(trendData.nation[0]);
     let nationEndJobs = parseInt(trendData.nation[trendData.nation.length - 1]);
     nationStartJobsLabel.innerText = nationStartJobs.toLocaleString("en");
@@ -194,39 +201,47 @@ function populateTrendsTable(data) {
 
 function populateIndustryTable(data) {
     const industryData = data.employing_industries;
-    const table = document.querySelector("#industryTable");
+    const table = document.querySelector("#industryTableBody");
     const yearLabels = document.querySelectorAll(".IndustryCurrentYear");
 
+    // write current year to table labels
     for (let label of yearLabels) {
         label.innerText = industryData.year;
     }
 
+    // helper function to add a new table row
     function addTableRow(
         title,
         inOccupationJobs,
         percentageJobsInIndustry,
         percentageTotalJobs
     ) {
+        // creates new, empty table row
         let rowCount = table.rows.length;
         let newRow = table.insertRow(rowCount);
 
+        // adds first cell ("Industry" column)
         let industryCell = newRow.insertCell(0);
         industryCell.innerHTML = `<div><object data="buildingIcon.svg"
         class="buildingIcon" type="image/svg+xml"></object><span class="industryTitle">${title}</span></div><div class="industryDiv" style="width: ${percentageJobsInIndustry}%; overflow="visible"></div>`;
 
+        // adds second cell ("Occupation Jobs in Industry" column)
         let occupationJobsCell = newRow.insertCell(1);
         occupationJobsCell.innerText = inOccupationJobs.toLocaleString("en");
         occupationJobsCell.classList.add("rightAlign");
 
+        // adds third cell ("% of Occupation Jobs in Industry" column)
         let percentOccupationJobsCell = newRow.insertCell(2);
         percentOccupationJobsCell.innerHTML = `<span>${percentageJobsInIndustry}</span>%`;
         percentOccupationJobsCell.classList.add("rightAlign");
 
+        // adds fourth column ("% Total Jobs in Industry" column)
         let percentTotalJobsCell = newRow.insertCell(3);
         percentTotalJobsCell.innerHTML = `<span>${percentageTotalJobs}</span>%`;
         percentTotalJobsCell.classList.add("rightAlign");
     }
 
+    // Gets info for each row, and pass to helper addTableRow() function
     for (let i = 0; i < industryData.industries.length; i++) {
         let title = industryData.industries[i].title;
         let inOccupationJobs = industryData.industries[i].in_occupation_jobs;
@@ -256,5 +271,4 @@ window.addEventListener("load", async function (event) {
     getSummaryEarnings(data);
     populateTrendsTable(data);
     populateIndustryTable(data);
-    // createGraph(data);
 });

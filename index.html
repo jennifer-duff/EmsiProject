@@ -169,13 +169,15 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody id="industryTableBody"></tbody>
             </table>
         </section>
 
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
         <script>
+            // global variables
             let data = "no data";
             let darkBlue = "#173b75";
             let mediumBlue = "#158cbf";
@@ -194,16 +196,15 @@
                     });
             }
 
+            // helper function to calculate percent change in jobs
             function calculatePercentChange(dataset) {
                 let percentChanges = [0];
                 let start = dataset[0];
                 for (let i = 1; i < dataset.length; i++) {
                     let change = dataset[i] - start;
                     let percentChange = (change / dataset[i]) * 100;
-                    // console.log(percentChange.toFixed(2));
                     percentChanges.push(percentChange);
                 }
-                // console.log("------------");
                 return percentChanges;
             }
 
@@ -211,6 +212,7 @@
                 await getData();
                 const trendData = data.trend_comparison;
 
+                // create x-axis labels
                 const labels = [];
                 const startYear = parseInt(trendData.start_year);
                 const endYear = parseInt(trendData.end_year);
@@ -218,6 +220,7 @@
                     labels.push(i);
                 }
 
+                // create all datasets
                 const regionalDataSet = {
                     label: "Region",
                     data: calculatePercentChange(trendData.regional),
@@ -248,12 +251,14 @@
                     pointBorderWidth: 5,
                 };
 
+                // combine datasets into single object
                 const chartData = {
                     labels: labels,
                     datasets: [regionalDataSet, stateDataSet, nationalDataSet],
                     options: {},
                 };
 
+                // create chart configurations
                 const config = {
                     type: "line",
                     data: chartData,
@@ -277,6 +282,8 @@
                         },
                     },
                 };
+
+                // build chart
                 new Chart("trendsGraph", config);
             }
 
