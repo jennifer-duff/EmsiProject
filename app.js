@@ -1,5 +1,5 @@
 "use strict";
-
+import Chart from "chart.js";
 // var requirejs = require('requirejs');
 
 let data = "no data";
