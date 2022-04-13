@@ -1,5 +1,7 @@
 "use strict";
 
+// var requirejs = require('requirejs');
+
 let data = "no data";
 let startYear;
 let endYear;
@@ -249,12 +251,10 @@ function populateIndustryTable(data) {
 
 window.addEventListener("load", async function (event) {
     await getData();
-
     setGeneralData(data);
     setSummaryJobs(data);
     setSummaryJobsGrowth(data);
     getSummaryEarnings(data);
     populateTrendsTable(data);
     populateIndustryTable(data);
-    // createGraph(data);
 });
