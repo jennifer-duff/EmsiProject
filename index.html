@@ -198,12 +198,14 @@
 
             // helper function to calculate percent change in jobs
             function calculatePercentChange(dataset) {
+                console.log(dataset);
                 let percentChanges = [0];
                 let start = dataset[0];
                 for (let i = 1; i < dataset.length; i++) {
                     let change = dataset[i] - start;
-                    let percentChange = (change / dataset[i]) * 100;
+                    let percentChange = (change / start) * 100;
                     percentChanges.push(percentChange);
+                    console.log(percentChange);
                 }
                 return percentChanges;
             }
